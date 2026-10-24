@@ -19,17 +19,12 @@ const vueCourante = computed(() => onglets.find((o) => o.id === ongletActif.valu
   <header class="entete">
     <div class="enseigne">
       <span class="enseigne-nom">Gargote</span>
-      <span class="enseigne-lieu">Chez Bao, Analakely</span>
+      <span class="enseigne-lieu">Chez Rakoto, Analamahitsy</span>
     </div>
 
     <nav class="onglets">
-      <button
-        v-for="onglet in onglets"
-        :key="onglet.id"
-        class="onglet"
-        :class="{ actif: onglet.id === ongletActif }"
-        @click="ongletActif = onglet.id"
-      >
+      <button v-for="onglet in onglets" :key="onglet.id" class="onglet" :class="{ actif: onglet.id === ongletActif }"
+        @click="ongletActif = onglet.id">
         {{ onglet.libelle }}
       </button>
     </nav>

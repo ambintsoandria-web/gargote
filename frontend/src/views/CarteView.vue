@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { api } from '../api'
 import PlatList from '../components/PlatList.vue'
 import PlatForm from '../components/PlatForm.vue'
@@ -46,11 +46,7 @@ onMounted(charger)
   <div class="grille">
     <PlatList :plats="plats" @modifier="platSelectionne = $event" @supprimer="supprimer" />
 
-    <PlatForm
-      :plat="platSelectionne"
-      :categories="categories"
-      @enregistre="surEnregistrement"
-      @annule="platSelectionne = null"
-    />
+    <PlatForm :plat="platSelectionne" :categories="categories" @enregistre="surEnregistrement"
+      @annule="platSelectionne = null" />
   </div>
 </template>

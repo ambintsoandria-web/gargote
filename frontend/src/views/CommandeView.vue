@@ -76,7 +76,6 @@ async function envoyer() {
 
       <Panier :lignes="panier" @plus="ajouter($event.plat)" @moins="retirer" />
       <small v-if="erreurs.lignes" class="erreur">{{ erreurs.lignes }}</small>
-
       <div class="boutons">
         <button type="submit" class="bouton">Envoyer en cuisine</button>
       </div>

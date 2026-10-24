@@ -28,7 +28,6 @@ const total = computed(() =>
         <span class="panier-montant">{{ ariary(ligne.plat.prix * ligne.quantite) }}</span>
       </li>
     </ul>
-
     <p class="panier-total">
       <span>Total</span>
       <strong>{{ ariary(total) }}</strong>

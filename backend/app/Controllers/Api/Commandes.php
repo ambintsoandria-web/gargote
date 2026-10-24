@@ -18,7 +18,6 @@ class Commandes extends ApiController
     public function show($id = null)
     {
         $commande = model(CommandeModel::class)->detail((int) $id);
-
         return $commande ? $this->respond($commande) : $this->erreur("Commande $id introuvable.", 404);
     }
 
@@ -37,7 +36,6 @@ class Commandes extends ApiController
         } catch (RegleMetierException $e) {
             return $this->erreurMetier($e);
         }
-
         return $this->respondCreated(model(CommandeModel::class)->detail($id));
     }
 }
