@@ -79,7 +79,6 @@ async function enregistrer() {
       </select>
       <small v-if="erreurs.id_categorie" class="erreur">{{ erreurs.id_categorie }}</small>
     </label>
-
     <div class="boutons">
       <button type="submit" class="bouton" :disabled="enCours">
         {{ modeEdition ? 'Enregistrer les modifications' : 'Ajouter le plat' }}

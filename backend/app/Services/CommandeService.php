@@ -25,16 +25,16 @@ class CommandeService
     public function creer(array $donnees): int
     {
         $numeroTable = $donnees['numero_table'] ?? null;
-        $lignes      = $donnees['lignes'] ?? [];
+        $lignes = $donnees['lignes'] ?? [];
 
         // --- Règles métier -------------------------------------------------
-        if (! is_numeric($numeroTable)) {
+        if (!is_numeric($numeroTable)) {
             throw new RegleMetierException('Numéro de table manquant.', [
                 'numero_table' => 'Indiquez le numéro de la table.',
             ]);
         }
 
-        if (! is_array($lignes) || $lignes === []) {
+        if (!is_array($lignes) || $lignes === []) {
             throw new RegleMetierException('La commande est vide.', [
                 'lignes' => 'Ajoutez au moins un plat.',
             ]);
@@ -53,8 +53,8 @@ class CommandeService
             }
 
             $lignesPretes[] = [
-                'id_plat'       => (int) $plat['id'],
-                'quantite'      => (int) ($ligne['quantite'] ?? 1),
+                'id_plat' => (int) $plat['id'],
+                'quantite' => (int) ($ligne['quantite'] ?? 1),
                 'prix_unitaire' => (int) $plat['prix'],
             ];
         }

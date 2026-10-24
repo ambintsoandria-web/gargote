@@ -90,7 +90,7 @@ Vue est nouveau pour vous. Le code de base utilise sept notions ; trouvez **un e
 | `onMounted` | exécuter du code quand le composant apparaît | |
 
 9. `Panier.vue` ne modifie jamais la quantité lui-même : il émet `plus` et `moins`. Pourquoi ce choix ? Qui modifie réellement la quantité ?
-10. Dans `PlatForm.vue`, à quoi sert le `watch` ? Que se passerait-il sans lui quand on clique sur **Modifier** d’un autre plat ?
+10. Dans `PlatForm.vue`, à quoi sert le `watch` ? Que se passerait-il sans lui quand on clique sur **Modifier** d’un autre plat ? (à faire)
 
 ## 0.6 Premières modifications
 
@@ -105,12 +105,15 @@ INSERT INTO categorie (libelle) VALUES ('Goûter');
 ```
 
 11. La catégorie apparaît dans la liste déroulante du formulaire sans que vous ayez écrit de code. Expliquez pourquoi, en citant la route et le composant concernés.
+Dans PlatForm.vue on a :
+<option v-for="c in categories" :key="c.id" :value="c.id">{{ c.libelle }}</option>
+et dans 
 
 ---
-
 ## Validation du niveau 0
 
 - [ ] L’application tourne (API + interface).
 - [ ] `reponses-niveau-0.md` répond aux 11 questions et contient le tableau 0.4 complet.
 - [ ] Le nom de la gargote est modifié ; *Goûter* existe en base.
 - [ ] Un commit `niveau 0 : prise en main`.
+
