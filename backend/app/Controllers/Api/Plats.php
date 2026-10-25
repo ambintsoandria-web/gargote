@@ -20,9 +20,11 @@ class Plats extends ApiController
     public function index()
     {
         $idCategorie = $this->request->getGet('categorie');
-
+        $disponibleParam = $this->request->getGet('disponible');
+        $disponible = ($disponibleParam !== null) ? filter_var($disponibleParam, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) : null;
         return $this->respond($this->plats->listerAvecCategorie(
-            $idCategorie !== null ? (int) $idCategorie : null
+            $idCategorie !== null ? (int) $idCategorie : null,
+            $disponible
         ));
     }
 
@@ -50,14 +52,14 @@ class Plats extends ApiController
     /** PUT /api/plats/{id} */
     public function update($id = null)
     {
-        if (! $this->plats->find($id)) {
+        if (!$this->plats->find($id)) {
             return $this->erreur("Plat $id introuvable.", 404);
         }
 
-        $donnees       = $this->donneesJson();
+        $donnees = $this->donneesJson();
         $donnees['id'] = (int) $id; // permet la règle is_unique[plat.nom,id,{id}]
 
-        if (! $this->plats->update($id, $donnees)) {
+        if (!$this->plats->update($id, $donnees)) {
             return $this->erreurValidation($this->plats->errors());
         }
 
@@ -67,7 +69,7 @@ class Plats extends ApiController
     /** DELETE /api/plats/{id} */
     public function delete($id = null)
     {
-        if (! $this->plats->find($id)) {
+        if (!$this->plats->find($id)) {
             return $this->erreur("Plat $id introuvable.", 404);
         }
 

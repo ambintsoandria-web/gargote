@@ -3,12 +3,18 @@ import { computed, ref, watch } from 'vue'
 import { api, ApiError } from '../api'
 
 const props = defineProps({
-  plat: { type: Object, default: null }, // null = nouveau plat
+  plat: { type: Object, default: null },
   categories: { type: Array, required: true },
 })
 const emit = defineEmits(['enregistre', 'annule'])
 
-const formulaireVide = () => ({ nom: '', prix: '', id_categorie: '' })
+const formulaireVide = () => ({
+  nom: '',
+  prix: '',
+  id_categorie: '',
+  description: '',
+  disponible: true,
+})
 
 const form = ref(formulaireVide())
 const erreurs = ref({})
@@ -17,12 +23,17 @@ const enCours = ref(false)
 
 const modeEdition = computed(() => props.plat !== null)
 
-// Quand le parent choisit un autre plat à modifier, on recopie ses valeurs.
 watch(
   () => props.plat,
   (plat) => {
     form.value = plat
-      ? { nom: plat.nom, prix: plat.prix, id_categorie: plat.id_categorie }
+      ? {
+        nom: plat.nom,
+        prix: plat.prix,
+        id_categorie: plat.id_categorie,
+        description: plat.description ?? '',
+        disponible: plat.disponible === 1 || plat.disponible === true,
+      }
       : formulaireVide()
     erreurs.value = {}
     message.value = ''
@@ -35,15 +46,19 @@ async function enregistrer() {
   erreurs.value = {}
   message.value = ''
   try {
+    const payload = {
+      ...form.value,
+      disponible: form.value.disponible,
+    }
     const resultat = modeEdition.value
-      ? await api.plats.modifier(props.plat.id, form.value)
-      : await api.plats.creer(form.value)
+      ? await api.plats.modifier(props.plat.id, payload)
+      : await api.plats.creer(payload)
     emit('enregistre', resultat)
     if (!modeEdition.value) form.value = formulaireVide()
   } catch (e) {
     if (e instanceof ApiError) {
       message.value = e.message
-      erreurs.value = e.errors
+      erreurs.value = e.errors || {}
     } else {
       message.value = 'Le serveur ne répond pas. Vérifiez que l’API est lancée.'
     }
@@ -79,6 +94,19 @@ async function enregistrer() {
       </select>
       <small v-if="erreurs.id_categorie" class="erreur">{{ erreurs.id_categorie }}</small>
     </label>
+
+    <label class="champ">
+      <span>Description</span>
+      <textarea v-model.trim="form.description" placeholder="Ex. : Plat épicé sauce piquante"></textarea>
+      <small v-if="erreurs.description" class="erreur">{{ erreurs.description }}</small>
+    </label>
+
+    <label class="champ champ-checkbox">
+      <input v-model="form.disponible" type="checkbox" />
+      <span>Disponible</span>
+      <small v-if="erreurs.disponible" class="erreur">{{ erreurs.disponible }}</small>
+    </label>
+
     <div class="boutons">
       <button type="submit" class="bouton" :disabled="enCours">
         {{ modeEdition ? 'Enregistrer les modifications' : 'Ajouter le plat' }}

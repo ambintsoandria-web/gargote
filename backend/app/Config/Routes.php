@@ -4,9 +4,6 @@ use CodeIgniter\Router\RouteCollection;
 
 /**
  * @var RouteCollection $routes
- *
- * Toutes les routes de l'API sont préfixées par /api
- * et renvoient du JSON.
  */
 $routes->get('/', 'Home::index');
 
@@ -25,4 +22,9 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], static function ($
     $routes->get('commandes', 'Commandes::index');
     $routes->get('commandes/(:num)', 'Commandes::show/$1');
     $routes->post('commandes', 'Commandes::create');
+
+    // Plat du jour (Correction du préfixe imbriqué et des fonctions correspondantes)
+    $routes->get('plat-du-jour', 'PlatDuJour::index');
+    $routes->put('plat-du-jour/(:num)', 'PlatDuJour::update/$1');
+    $routes->get('plat-du-jour/historique', 'PlatDuJour::historique');
 });

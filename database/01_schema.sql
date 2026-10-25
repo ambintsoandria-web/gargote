@@ -21,6 +21,7 @@ CREATE TABLE plat (
     nom           VARCHAR(100) NOT NULL,
     prix          INTEGER      NOT NULL,
     id_categorie  INTEGER      NOT NULL REFERENCES categorie(id)
+    -- estplatdujour BOOLEAN
 );
 
 -- Une commande = une table de la gargote à un instant donné

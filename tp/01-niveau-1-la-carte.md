@@ -19,7 +19,6 @@
 - Placer une règle métier dans un service.
 - Créer un composant Vue avec props et événements, et le réutiliser dans deux écrans.
 - Organiser un CSS autour de variables.
-
 ---
 
 ## A. Base de données
@@ -53,7 +52,7 @@ plat_du_jour (date_jour, #id_plat)
 
 Créez `database/niveau1_donnees.sql` :
 
-- la catégorie *Goûter* (attention, elle existe peut-être déjà depuis le niveau 0 : utilisez `ON CONFLICT (libelle) DO NOTHING`) ;
+- la catégorie *Goûter* (attention, elle existe peut-être déjà depuis le niveau 0 : utilisez `ON CONFLICT (libelle) DO NOTHING`);
 - au moins **5 plats** de goûter avec une description : *mofo gasy, mokary, koba, godrogodro, menakely…* ;
 - une description pour au moins **5 plats existants** (`UPDATE`) ;
 - **2 plats épuisés** ;
@@ -70,7 +69,7 @@ INSERT INTO plat (nom, prix, id_categorie, description)
 SELECT 'Koba', 1000, id, 'Pâte d''arachide, banane et farine de riz, cuite en feuille de bananier'
 FROM categorie WHERE libelle = 'Goûter';
 ```
-
+x
 Pour les dates, `CURRENT_DATE - 3` donne la date d’il y a trois jours.
 
 3. Essayez d’insérer un plat à 0 Ar et un plat dont le nom existe déjà. Copiez les messages d’erreur de PostgreSQL dans vos réponses.
@@ -171,7 +170,6 @@ Avant d’écrire le moindre composant Vue, vérifiez **chaque ligne** de ce tab
 6. Avant votre règle `is_not_unique`, la quatrième requête renvoyait 500. Pourquoi ? Qui détectait l’erreur, et pourquoi est-ce un problème de laisser PostgreSQL la détecter seul ?
 
 ---
-
 ## D. Interface Vue
 
 Ajoutez d’abord les nouvelles fonctions dans `src/api.js` (`api.platDuJour.lire()`, `api.platDuJour.definir(idPlat)`, `api.platDuJour.historique()`). Aucun composant ne doit appeler `fetch()` directement.
@@ -181,11 +179,10 @@ Ajoutez d’abord les nouvelles fonctions dans `src/api.js` (`api.platDuJour.lir
 Dans `PlatForm.vue` :
 
 - un champ **Description** (`<textarea>`) ;
-- une case à cocher **Disponible** (cochée par défaut pour un nouveau plat) ;
+- une case à cocher **Disponible** (cochée par défaut pour un nouveau plat);
 - les erreurs de ces deux champs s’affichent sous le champ, comme pour les autres.
 
 ### 1.9 L’ardoise
-
 Dans `PlatList.vue` :
 
 - la description apparaît sous le nom du plat, en plus petit ;
@@ -243,7 +240,7 @@ Le CSS fourni contient encore **des couleurs écrites directement** en dehors de
 
 - [ ] `reset.sh`, puis `niveau1_schema.sql`, puis `niveau1_donnees.sql` s’exécutent sans erreur.
 - [ ] Les 8 requêtes du tableau 1.7 donnent le code attendu. Aucune erreur 500.
-- [ ] La carte affiche descriptions, plats épuisés et plat du jour ; on peut basculer un plat en épuisé et choisir le plat du jour depuis l’interface.
+- [ ] La carte affiche descriptions, plats épuisés et plat du jour ; on peut basculer un plat en épuisé et choisir le plat du jour depuis l’interface.  
 - [ ] `PlatDuJour.vue` est utilisé dans deux écrans, avec deux comportements différents.
 - [ ] Plus aucune couleur en dur hors de `:root` ; deux captures d’écran montrent deux thèmes.
 - [ ] Réponses aux questions 1 à 7 dans `tp/reponses-niveau-1.md`.

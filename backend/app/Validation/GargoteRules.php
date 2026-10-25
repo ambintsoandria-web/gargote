@@ -30,4 +30,12 @@ class GargoteRules
 
         return false;
     }
+    public function est_booleen($valeur, ?string &$erreur = null): bool
+    {
+        if (in_array($valeur, [true, false, 0, 1, '0', '1'], true)) {
+            return true;
+        }
+        $erreur = 'Le champ doit être un booléen (vrai ou faux).';
+        return false;
+    }
 }
